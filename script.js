@@ -30,13 +30,17 @@ class character {
 }
 
 let sp1 = new character("Standardkaraktär", 20, 2, 3, 0, 200)
-let fiende1 = new character("Standardfiende", 10, 3, 0, 200)
+let fiende1 = new character("Standardfiende", 10, 3, 3,  0, 800)
 
 let keys = {
     w: false,
     s: false,
     d: false,
     a: false,
+    ArrowLeft: false,
+    ArrowRight: false,
+    ArrowUp: false,
+    ArrowDown: false,
 }
 
 document.onkeydown = function(e) {
@@ -99,3 +103,8 @@ function draw(timestamp) {
 }
 
 spritesheet.onload = requestAnimationFrame(draw)
+
+function shoot(direction) {
+    if (keys.ArrowRight) {
+    }
+}

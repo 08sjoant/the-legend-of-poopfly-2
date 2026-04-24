@@ -17,26 +17,52 @@ let lastTimestamp = 0,x
 //how to walk
 
 
-
-let numberOfProjectiles = 0
-
 class character {
-    constructor(name, speed, fire_rate, damage, xpos, ypos) {
+    constructor(name, speed, projectiles, fire_rate, shot_speed, damage, xpos, ypos) {
         this.name = name;
         this.speed = speed;
+        this.projectiles = projectiles;
         this.fire_rate = fire_rate;
+        this.shot_speed = shot_speed;
         this.damage = damage;
         this.xpos = xpos;
         this.ypos = ypos;
     }
+
+    shoot() {
+    this.bullets.push(new Bullet(this.xpos, this.ypos, direction));
+    }
 }
 
-let sp1 = new character("Standardkaraktär", 20, 2, 3, 0, 200)
-let fi1 = new character("Standardfiende", 15, 3, 3,  300, 400)
-let fi2 = new character("Standardfiende", 15, 3, 3,  300, 500)
-let fi3 = new character("Standardfiende", 15, 3, 3,  300, 600)
-let fi4 = new character("Standardfiende", 15, 3, 3,  300, 700)
-let fi5 = new character("Standardfiende", 15, 3, 3,  300, 800)
+
+class Bullet {
+    constructor(x, y, angle) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.speed = 16;
+  }
+  
+    drawProjectile() {
+        push();
+        fill(0);
+        circle(this.x, this.y, 5);
+        pop();
+    }
+  
+  update() {
+        this.x += this.speed * cos(direction);
+        this.y += this.speed * sin(direction);
+    }
+}
+
+
+let sp1 = new character("Standardkaraktär", 20, 2, 0, 2, 3, 0, 200)
+let fi1 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 400)
+let fi2 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 500)
+let fi3 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 600)
+let fi4 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 700)
+let fi5 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 800)
 
 
 let keys = {
@@ -56,7 +82,7 @@ document.onkeydown = function(e) {
     keys[key] = true
     if (e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft" || e.key == "ArrowRight"){
         numberOfProjectiles += 1
-        shoot(e.key)
+        sp1.shoot(e.key)
     }
 }
 
@@ -94,6 +120,12 @@ function draw(timestamp) {
     moveEnemies(fi3)
     moveEnemies(fi4)
     moveEnemies(fi5)
+
+    for (i=0; i<sp1.projectiles; i++) {
+        bullet.update();
+        bullet.drawProjectile();
+    }
+
 
     if (keys.a || keys.d || keys.w || keys.s) {
         spritesheet.src = "Dude_Monster_Walk_6.png"

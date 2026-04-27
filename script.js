@@ -16,12 +16,38 @@ let lastTimestamp = 0,x
 
 //how to walk
 
+class Projectile {
+    constructor(x, y, direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.speed = 16;
+    }
+  
+    update() {
+        if (this.direction == "ArrowUp") {
+            this.y += this.speed
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 0, 0, 2 * Math.PI);
+            ctx.fillStyle = "black"
+            ctx.fill();
+        }
+        else {if (this.direction = "ArrowDown") {
+            this.y -= this.speed
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 0, 0, 2 * Math.PI);
+            ctx.fillStyle = "black"
+            ctx.fill();
+            }
+        }
+    }
+}
 
 class character {
-    constructor(name, speed, projectiles, fire_rate, shot_speed, damage, xpos, ypos) {
+    constructor(name, speed, fire_rate, shot_speed, damage, xpos, ypos) {
         this.name = name;
         this.speed = speed;
-        this.projectiles = projectiles;
+        this.projectiles = [];
         this.fire_rate = fire_rate;
         this.shot_speed = shot_speed;
         this.damage = damage;
@@ -29,40 +55,21 @@ class character {
         this.ypos = ypos;
     }
 
-    shoot() {
-    this.bullets.push(new Bullet(this.xpos, this.ypos, direction));
+    updateplayer() {
+        for (let projectile of this.projectiles) {
+            projectile.update();
+        }
     }
-}
 
-
-class Bullet {
-    constructor(x, y, angle) {
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-        this.speed = 16;
-  }
-  
-    drawProjectile() {
-        push();
-        fill(0);
-        circle(this.x, this.y, 5);
-        pop();
-    }
-  
-  update() {
-        this.x += this.speed * cos(direction);
-        this.y += this.speed * sin(direction);
+    shoot(direction) {
+    console.log("shoot")
+    this.projectiles.push(new Projectile(this.xpos, this.ypos, direction));
     }
 }
 
 
 let sp1 = new character("Standardkaraktär", 20, 2, 0, 2, 3, 0, 200)
 let fi1 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 400)
-let fi2 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 500)
-let fi3 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 600)
-let fi4 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 700)
-let fi5 = new character("Standardfiende", 15, 3, 0, 2, 3,  300, 800)
 
 
 let keys = {
@@ -81,7 +88,6 @@ document.onkeydown = function(e) {
     const key = e.key
     keys[key] = true
     if (e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft" || e.key == "ArrowRight"){
-        numberOfProjectiles += 1
         sp1.shoot(e.key)
     }
 }
@@ -104,6 +110,7 @@ function moveEnemies(fiende) {
     ctx.drawImage(spritesheet, frameIndex * spritewidth, 0, spritewidth, spriteheight, fiende.xpos, fiende.ypos, spritewidth, spriteheight)
 }
 
+
 function draw(timestamp) {
     if (timestamp - lastTimestamp < timestep) {
         // Vi ska vänta med att rita så vi avbryter funktionen.
@@ -116,16 +123,13 @@ function draw(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height,)
 
     moveEnemies(fi1)
-    moveEnemies(fi2)
-    moveEnemies(fi3)
-    moveEnemies(fi4)
-    moveEnemies(fi5)
+    sp1.updateplayer()
 
     for (i=0; i<sp1.projectiles; i++) {
         bullet.update();
-        bullet.drawProjectile();
     }
 
+    
 
     if (keys.a || keys.d || keys.w || keys.s) {
         spritesheet.src = "Dude_Monster_Walk_6.png"
@@ -140,6 +144,7 @@ function draw(timestamp) {
     if (keys.d) {sp1.xpos += sp1.speed}
     if (keys.w) {sp1.ypos -= sp1.speed}
     if (keys.s) {sp1.ypos += sp1.speed}
+
 
     ctx.drawImage(spritesheet, frameIndex * spritewidth, 0, spritewidth, spriteheight, sp1.xpos, sp1.ypos, spritewidth, spriteheight)
 

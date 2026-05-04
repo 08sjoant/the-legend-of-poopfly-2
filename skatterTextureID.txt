@@ -1,0 +1,5 @@
+Teleskop: 0
+Raket i en burk: 1
+Sten: 2
+Helig Utplånare: 3
+Universumsförstörare: 4

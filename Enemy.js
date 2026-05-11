@@ -10,10 +10,16 @@ class Enemy {
 
         this.spriteHeight = 32;
         this.spriteWidth = 32;
+
+        this.spriteWidth = 32;
+        this.spriteHeight = 32;
+        this.frameIndex = 0; //WIP
+        this.frameTotal = 4;
     }
 
     draw() {
-        ctx.drawImage(this.enemySpritesheet, frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+        ctx.drawImage(this.enemySpritesheet, this.frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+        this.frameIndex = (this.frameIndex + 1) % this.frameTotal;
     }
 
     update() {
@@ -31,6 +37,8 @@ class Enemy {
             if (dy > 0) this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"   //ner
             else this.enemySpritesheet.src = "sprites/Dude_Monster_Walk_6.png"          //upp
         }
+        
+
         
 
         this.x = this.x + (dx / distance) * this.speed;

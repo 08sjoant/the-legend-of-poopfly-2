@@ -1,12 +1,6 @@
 const canvas = document.getElementById("spelyta");
 const ctx = canvas.getContext("2d");
 
-//sprite
-let frameIndex = 0;
-let frameTotal = 4;
-
-const spritesheet = new Image();
-
 // loop
 let lastTimestamp = 0;
 const maxFPS = 15;
@@ -61,13 +55,18 @@ function gameLoop(timestamp) {
       e.update()
     }
 
+    dorr1.draw()
+    dorr2.draw()
+
+
 
     // Next sprite in the animation
-    frameIndex = (frameIndex + 1) % frameTotal;
+    
 
     requestAnimationFrame(gameLoop);
+    
 }
 
 requestAnimationFrame(gameLoop);
 
-dörr1.draw()
+

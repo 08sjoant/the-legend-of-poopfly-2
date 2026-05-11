@@ -6,10 +6,13 @@ constructor() {
     this.speed = 30;
 
     //sprite
+    this.runningDirection = ""
     this.spriteWidth = 64;
     this.spriteHeight = 64;
     this.frameIndex = 0; //WIP
     this.frameTotal = 4; //WIP
+    this.spritesheet = new Image();
+    this.shootSpritesheet = new Image();
 
     //Lista med alla projektiler som ska uppdateras
     this.projectiles = []; 
@@ -22,35 +25,41 @@ constructor() {
   }
 
   draw() {
-    ctx.drawImage(spritesheet, frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+    ctx.drawImage(this.spritesheet, this.frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+    ctx.drawImage(this.shootSpritesheet, this.frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+    this.frameIndex = (this.frameIndex + 1) % this.frameTotal;
   }
 
-  update() {
-    spritesheet.src = "sprites/Dude_Monster_Idle_4.png"
-    thisframeTotal = 4;
+  update() {  
+    this.shootSpritesheet.src = "sprites/Running_right_shooting_right_6.png"
+    this.spritesheet.src = "sprites/Dude_Monster_Idle_4.png"
+    this.frameTotal = 4;
     let xSpeed = 0;
     let ySpeed = 0;
 
-
     if (keys["a"]) {
       xSpeed -= this.speed;
-      spritesheet.src = "sprites/Running_sheet_left_6.png";
+      this.spritesheet.src = "sprites/Running_sheet_left_6.png";
       this.frameTotal = 6;
+      this.runningDirection = "right"
     }
     if (keys["d"]) {
       xSpeed += this.speed;
-      spritesheet.src = "sprites/Running_sheet_right_6.png";
-      frameTotal = 6;
+      this.spritesheet.src = "sprites/Running_sheet_right_6.png";
+      this.frameTotal = 6;
+      this.runningDirection = "left"
     }
     if (keys["w"]) {
       ySpeed -= this.speed;
-      spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
-      frameTotal = 6;
+      this.spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
+      this.frameTotal = 6;
+      this.runningDirection = "up"
     }
     if (keys["s"]) {
       ySpeed += this.speed;
-      spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
-      frameTotal = 6;
+      this.spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
+      this.frameTotal = 6;
+      this.runningDirection = "down"
     }
 
     this.x += xSpeed;
@@ -64,6 +73,17 @@ constructor() {
   }
 
   shoot(direction) {
+    //Spriteändringar beroende på var spelaren skjuter
+    if (direction === "ArrowRight") { //om spelaren skjuter höger
+      if (this.runningDirection == "left") { //om spelaren går vänster
+        console.log("test")
+        this.shootSpritesheet.src = "sprites/Running_left_shooting_left_6.png"
+      }
+      else {
+        this.shootSpritesheet.src = "sprites/Running_right_shooting_right_6"
+      }
+    } 
+
     if (Date.now()/1000 - this.fireRateDelay > 1/this.fireRate) {
       console.log(Date.now)
       this.projectiles.push(new Projectile(this.x+16, this.y+16, direction, this.shotSpeed));

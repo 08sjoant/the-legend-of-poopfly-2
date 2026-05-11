@@ -69,3 +69,5 @@ function gameLoop(timestamp) {
 }
 
 requestAnimationFrame(gameLoop);
+
+dörr1.draw()

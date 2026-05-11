@@ -1,15 +1,21 @@
 class Player {
 constructor() {
+    //rörelse
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
-    this.speed = 10;
+    this.speed = 30;
 
-    this.spriteWidth = 32;
-    this.spriteHeight = 32;
+    //sprite
+    this.spriteWidth = 64;
+    this.spriteHeight = 64;
+    this.frameIndex = 0; //WIP
+    this.frameTotal = 4; //WIP
 
-    this.projectiles = []; //Lista med alla projektiler som ska uppdateras
+    //Lista med alla projektiler som ska uppdateras
+    this.projectiles = []; 
 
-    this.fireRate = 4;
+    //attackvärden
+    this.fireRate = 4; 
     this.fireRateDelay = 0;
     this.shotSpeed = 20;
     this.damage = 2
@@ -21,15 +27,15 @@ constructor() {
 
   update() {
     spritesheet.src = "sprites/Dude_Monster_Idle_4.png"
-    frameTotal = 4;
+    thisframeTotal = 4;
     let xSpeed = 0;
     let ySpeed = 0;
 
 
     if (keys["a"]) {
       xSpeed -= this.speed;
-      spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
-      frameTotal = 6;
+      spritesheet.src = "sprites/Running_sheet_left_6.png";
+      this.frameTotal = 6;
     }
     if (keys["d"]) {
       xSpeed += this.speed;
@@ -59,6 +65,7 @@ constructor() {
 
   shoot(direction) {
     if (Date.now()/1000 - this.fireRateDelay > 1/this.fireRate) {
+      console.log(Date.now)
       this.projectiles.push(new Projectile(this.x+16, this.y+16, direction, this.shotSpeed));
       this.fireRateDelay = Date.now()/1000;
     }

@@ -2,6 +2,8 @@ class Enemy {
     constructor(speed, damage, health) {
         this.x = Math.random() * 1000;
         this.y = Math.random() * 500;
+        this.enemySpritesheet = new Image();
+
         this.speed = speed;
         this.damage = damage;
         this.health = health;
@@ -11,22 +13,23 @@ class Enemy {
     }
 
     draw() {
-        ctx.drawImage(spritesheet, frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
+        ctx.drawImage(this.enemySpritesheet, frameIndex * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight);
     }
 
     update() {
+        this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"
         const dx = player.x - this.x;
         const dy = player.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (dx > dy) {
-            if (dx > 0) console.log("gå höger")
-            else console.log("gå vänster")
+        if (dx*dx > dy*dy) {
+            if (dx > 0) this.enemySpritesheet.src = "sprites/Dude_Monster_Walk_6.png"   //höger
+            else this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"          //vänster
         }
 
         else {
-            if (dy > 0) console.log("gå ner")
-            else console.log("gå upp")
+            if (dy > 0) this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"   //ner
+            else this.enemySpritesheet.src = "sprites/Dude_Monster_Walk_6.png"          //upp
         }
         
 

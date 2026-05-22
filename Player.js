@@ -31,8 +31,7 @@ constructor() {
   }
 
   update() {  
-    this.shootSpritesheet.src = "sprites/Running_right_shooting_right_6.png"
-    this.spritesheet.src = "sprites/Dude_Monster_Idle_4.png"
+    this.spritesheet.src = "sprites/Running_sheet_down_6.png"
     this.frameTotal = 4;
     let xSpeed = 0;
     let ySpeed = 0;
@@ -41,23 +40,23 @@ constructor() {
       xSpeed -= this.speed;
       this.spritesheet.src = "sprites/Running_sheet_left_6.png";
       this.frameTotal = 6;
-      this.runningDirection = "right"
+      this.runningDirection = "left"
     }
     if (keys["d"]) {
       xSpeed += this.speed;
       this.spritesheet.src = "sprites/Running_sheet_right_6.png";
       this.frameTotal = 6;
-      this.runningDirection = "left"
+      this.runningDirection = "right"
     }
     if (keys["w"]) {
       ySpeed -= this.speed;
-      this.spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
+      this.spritesheet.src = "sprites/Running_sheet_up_6.png";
       this.frameTotal = 6;
       this.runningDirection = "up"
     }
     if (keys["s"]) {
       ySpeed += this.speed;
-      this.spritesheet.src = "sprites/Dude_Monster_Walk_6.png";
+      this.spritesheet.src = "sprites/Running_sheet_down_6.png";
       this.frameTotal = 6;
       this.runningDirection = "down"
     }
@@ -74,15 +73,18 @@ constructor() {
 
   shoot(direction) {
     //Spriteändringar beroende på var spelaren skjuter
-    if (direction === "ArrowRight") { //om spelaren skjuter höger
-      if (this.runningDirection == "left") { //om spelaren går vänster
-        console.log("test")
-        this.shootSpritesheet.src = "sprites/Running_left_shooting_left_6.png"
-      }
-      else {
-        this.shootSpritesheet.src = "sprites/Running_right_shooting_right_6"
-      }
-    } 
+    switch(direction) {
+      case "ArrowRight":
+        this.shootSpritesheet.src = "sprites/Shooting_right_6.png";
+        console.log("right");
+        break;
+      case "ArrowLeft":
+        this.shootSpritesheet.src = "sprites/Shooting_left_6.png";
+        console.log("left");
+        break;
+      case "ArrowUp":
+      case "ArrowDown":
+    }
 
     if (Date.now()/1000 - this.fireRateDelay > 1/this.fireRate) {
       console.log(Date.now)

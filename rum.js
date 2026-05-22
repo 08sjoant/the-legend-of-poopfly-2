@@ -6,6 +6,10 @@ constructor(rumstyp, riktning, modifierare) {
     this.riktning = riktning;
     this.modifierare = modifierare;
 
+    //position
+    this.x = x
+    this.y = y
+
     //sprite
     this.spriteWidth = 32;
     this.spriteHeight = 32;
@@ -13,11 +17,12 @@ constructor(rumstyp, riktning, modifierare) {
     this.frameTotal = 3;
     this.dorrsprite = new Image();
 }
+
 draw() {
         let width = document.getElementById("spelyta").width
         let height = document.getElementById("spelyta").height
         ctx.fillStyle = "rgb(255, 0, 0)";
-        this.dorrsprite.src = "sprites/Dörrar_4(UNVH).png"
+        this.dorrsprite.src = "sprites/Dorrar_4(UNVH).png"
     if (this.riktning == "x"){
         console.log("x")
         ctx.fillRect(width*this.modifierare, height/2,(width * this.modifierare)+32,(height/2)+32)
@@ -27,7 +32,6 @@ draw() {
         console.log("y")
     }
 }
-}
 
-let dorr1 = new rum("Lätt", "x", 0)
-let dorr2 = new rum("Medel", "x", 1)
+
+}

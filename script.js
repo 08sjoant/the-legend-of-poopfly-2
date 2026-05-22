@@ -22,14 +22,12 @@ document.addEventListener("keyup", e => {
   keys[e.key.toLowerCase()] = false;
 });
 
-// start
+// setup
 let player = new Player();
 let enemyCount = [];
 for (i=0; i<5; i++) {
   enemyCount.push(new Enemy(Math.random() * 7 + 3, 5, 5));
 }
-
-
 
 
 
@@ -54,10 +52,6 @@ function gameLoop(timestamp) {
       e.draw()
       e.update()
     }
-
-    dorr1.draw()
-    dorr2.draw()
-
 
 
     // Next sprite in the animation

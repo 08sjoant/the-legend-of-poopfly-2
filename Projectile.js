@@ -34,6 +34,8 @@ class Projectile {
           
           if (enemyCount[i].health < 1) { //kollar om fienden dör
             enemyCount.splice(i, 1) //tar bort fienden
+            killCount += 1
+            console.log(killCount)
         }
         }
       }

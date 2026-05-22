@@ -12,7 +12,7 @@ class Player {
     //rörelse
     this.x = (canvas.width / 2) - (this.spriteWidth / 2); //startposition mitt på skärmen
     this.y = (canvas.height / 2) - (this.spriteHeight / 2); //startposition mitt på skärmen
-    this.speed = 30;
+    this.speed = 20;
 
     //array med alla projektiler som ska uppdateras, för att lätt lägga till och ta bort projektiler.
     this.projectiles = []; 
@@ -20,7 +20,7 @@ class Player {
     //attackvärden
     this.fireRate = 4; //antal gånger man kan skjuta per sekund.
     this.fireRateDelay = 0; //tillfällig delay för att skjuta. Nödvändig variabel för fire rate.
-    this.shotSpeed = 20; //antal pixlar skotten färdas.
+    this.shotSpeed = 30; //antal pixlar skotten färdas.
     this.damage = 2;
 
     //hälsa och odödlighetstid
@@ -120,7 +120,12 @@ class Player {
         break;
 
       case "ArrowUp": //spritesheet för att skjuta upp:
+        this.shootSpritesheet.src = "sprites/Shooting_up_6.png";
+        break;
+
       case "ArrowDown": //spritesheet för att skjuta ner:
+        this.shootSpritesheet.src = "sprites/Shooting_down_6.png";
+        break;
     }
 
 

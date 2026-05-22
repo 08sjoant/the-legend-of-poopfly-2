@@ -28,6 +28,7 @@ let enemyCount = []; //fiender skapas senare i denna array. En array gör det en
 for (i=0; i<5; i++) { //skapar fiender, just nu skapas temporärt 5 fiender:
   enemyCount.push(new Enemy(Math.random() * 7 + 3, 5, 5)); //fiender skapas enligt constructors i klassen Enemy, med slumpad hastighet mellan 3 och 7.
 }
+let killCount = 0
 
 
 

@@ -25,20 +25,12 @@ class Enemy {
     }
 
     update() { //uppdaterar fienden.
-        this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png" //standard spritesheet
         const dx = player.x - this.x; //avstånd till spelaren i x-led
         const dy = player.y - this.y; //avstånd till spelaren i y-led
         const distance = Math.sqrt(dx * dx + dy * dy); //Pythagoras sats för att få distansen, omvandlar också resultatet positivt.
 
-        if (dx*dx > dy*dy) { //kollar om skillnaden till spelarn i x-led är större än i y-led för att tillämpa lämpligt spritesheet.
-            if (dx > 0) this.enemySpritesheet.src = "sprites/Dude_Monster_Walk_6.png"   //om xförändringen är positiv: höger
-            else this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"          //annars: vänster
-        }
-
-        else {
-            if (dy > 0) this.enemySpritesheet.src = "sprites/Dude_Monster_Idle_4.png"   //om yförändringen är positiv: ner
-            else this.enemySpritesheet.src = "sprites/Dude_Monster_Walk_6.png"          //annars: upp
-        }
+        if (dx > 0) this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Right_6.png"    //om xförändringen är positiv: höger
+        else this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Left_6.png"            //annars: vänster
         
 
         //flyttar x- och y-koordinater mot spelaren med fiendens hastighet.

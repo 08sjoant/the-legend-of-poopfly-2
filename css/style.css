@@ -1,0 +1,16 @@
+h1, p {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    color: white;
+}
+
+#spelyta {
+    display: block; 
+    margin: auto;
+}
+
+#credits {
+    display: block;
+    color: black;
+}

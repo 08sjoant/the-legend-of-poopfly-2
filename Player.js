@@ -44,7 +44,7 @@ class Player {
 
 
   update() { //uppdaterar spelaren.
-    this.spritesheet.src = "sprites/Running_sheet_down_6.png" //standard spritesheet om inget annat anges.
+    this.spritesheet.src = "sprites/player_movement/Running_sheet_down_6.png" //standard spritesheet om inget annat anges.
     this.frameTotal = 4; //mängden bilder i det spritesheetet.
     let xSpeed = 0; //om inget annat anges flyttar man sig 0 på x-axeln.
     let ySpeed = 0; //samma gäller y-axeln.
@@ -68,25 +68,25 @@ class Player {
     //kollar för WASD om tangent är nedtryckt och spelaren inte försöker gå utanför kartan.
     if (keys["a"] && this.x > 0) { 
       xSpeed -= this.speed; //flyttar negativt på x-axeln (går vänster)
-      this.spritesheet.src = "sprites/Running_sheet_left_6.png"; 
+      this.spritesheet.src = "sprites/player_movement/Running_sheet_left_6.png"; 
       this.frameTotal = 6;
       this.runningDirection = "left"
     }
     if (keys["d"] && this.x + this.spriteWidth < canvas.width) {
       xSpeed += this.speed; //flyttar positivt på x-axeln (går höger)
-      this.spritesheet.src = "sprites/Running_sheet_right_6.png";
+      this.spritesheet.src = "sprites/player_movement/Running_sheet_right_6.png";
       this.frameTotal = 6;
       this.runningDirection = "right"
     }
     if (keys["w"] && this.y > 0) {
       ySpeed -= this.speed; //flyttar negativt på y-axeln (går upp)
-      this.spritesheet.src = "sprites/Running_sheet_up_6.png";
+      this.spritesheet.src = "sprites/player_movement/Running_sheet_up_6.png";
       this.frameTotal = 6;
       this.runningDirection = "up"
     }
     if (keys["s"] && this.y + this.spriteHeight < canvas.height) {
       ySpeed += this.speed; //flyttar positivt på y-axeln (går ner)
-      this.spritesheet.src = "sprites/Running_sheet_down_6.png";
+      this.spritesheet.src = "sprites/player_movement/Running_sheet_down_6.png";
       this.frameTotal = 6;
       this.runningDirection = "down"
     }
@@ -100,9 +100,6 @@ class Player {
     for (let p of this.projectiles) { //för varje projektil som ligger i spelarens array this.projectiles:
       p.update(); //uppdaterar projektilen
       p.draw(); //måla projektilen
-
-
-    
     }
   }
 
@@ -112,19 +109,19 @@ class Player {
     //Spriteändringar beroende på var spelaren skjuter
     switch(direction) {
       case "ArrowRight": //spritesheet för att skjuta höger:
-        this.shootSpritesheet.src = "sprites/Shooting_right_6.png";
+        this.shootSpritesheet.src = "sprites/player_aim/Shooting_right_6.png";
         break;
 
       case "ArrowLeft": //spritesheet för att skjuta vänster:
-        this.shootSpritesheet.src = "sprites/Shooting_left_6.png";
+        this.shootSpritesheet.src = "sprites/player_aim/Shooting_left_6.png";
         break;
 
       case "ArrowUp": //spritesheet för att skjuta upp:
-        this.shootSpritesheet.src = "sprites/Shooting_up_6.png";
+        this.shootSpritesheet.src = "sprites/player_aim/Shooting_up_6.png";
         break;
 
       case "ArrowDown": //spritesheet för att skjuta ner:
-        this.shootSpritesheet.src = "sprites/Shooting_down_6.png";
+        this.shootSpritesheet.src = "sprites/player_aim/Shooting_down_6.png";
         break;
     }
 

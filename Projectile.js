@@ -26,21 +26,24 @@ class Projectile {
       }
 
 
-
       for (i in enemyCount) { //för varje fiende:
         if (((this.x+2) - (enemyCount[i].x+16))**2 + ((this.y+2) - (enemyCount[i].y+16))**2 < 256) { //ungefär samma pythagoras sats som kollar avståndet mellan fienden och spelaren:
-          enemyCount[i].health -= player.damage //fienden tar skada lika med player.damage
-          player.projectiles.splice(player.projectiles.indexOf(this), 1) //tar bort just den här projektilen från array player.projectile. Det här är där array underlättar som "hus" åt projektiler och fiender.
+          enemyCount[i].health -= player.damage; //fienden tar skada lika med player.damage
+          player.projectiles.splice(player.projectiles.indexOf(this), 1); //tar bort just den här projektilen från array player.projectile. Det här är där array underlättar som "hus" åt projektiler och fiender.
           
           if (enemyCount[i].health < 1) { //kollar om fienden dör
-            enemyCount.splice(i, 1) //tar bort fienden
-            killCount += 1
-            console.log(killCount)
+            enemyCount.splice(i, 1); //tar bort fienden
+            killCount += 1;
+            const score = document.getElementById("score"); //sparar score från HTML-document.
+            score.innerHTML = killCount; //lägger till variabeln killCount i HTML-elementet.
+
+            if (player.currentHealth < player.maxHealth) player.currentHealth += 1 //ökar spelarens hälsa med 1 när en fiende dör, om spelarens nuvarande hälsa är mindre än maxhälsan
         }
         }
       }
     }
 
+    
     draw() { //målar skottet
       ctx.beginPath();
       ctx.fillStyle = 'black'; //fyllnadsfärg: svart

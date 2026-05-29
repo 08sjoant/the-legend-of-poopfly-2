@@ -56,16 +56,17 @@ function setupGame() { //spelet skapas via en funktion så att vi enkelt kan anr
   for (i=0; i<5; i++) { //skapar fiender i början av spelet enligt ett värde. Just nu 5
     enemyCount.push(new Enemy(Math.random() * 7 + 3, 5, 5)); //fiender skapas enligt constructors i klassen Enemy, med slumpad hastighet mellan 3 och 7.
   }  
-
-  function BirthEnemy() { //skapar fler fiender
-  enemyCount.push(new Enemy(Math.random() * 7 + 3 + timePlayed/10, 5 + timePlayed/30, 5 + timePlayed/30)); //fiender skapas enligt constructors i klassen Enemy, med slumpad hastighet mellan 3 och 7 + 1 var tionde sekund. Hälsa och skada ökar med 1 var trettionde sekund.
-  }
-
-  intervalID = window.setInterval(BirthEnemy, 3000); //anropar funktionen BirthEnemy var tretusende millisekund (3:e sekund)
 }
 
 
 setupGame(); //skapar spelet en första gång.
+
+
+function BirthEnemy() { //skapar fler fiender
+  enemyCount.push(new Enemy(Math.random() * 7 + 3 + timePlayed/10, 5 + timePlayed/30, 5 + timePlayed/30)); //fiender skapas enligt constructors i klassen Enemy, med slumpad hastighet mellan 3 och 7 + 1 var tionde sekund. Hälsa och skada ökar med 1 var trettionde sekund.
+  }
+
+intervalID = window.setInterval(BirthEnemy, 3000); //anropar funktionen BirthEnemy var tretusende millisekund (3:e sekund)
 
 
 // GAME LOOP

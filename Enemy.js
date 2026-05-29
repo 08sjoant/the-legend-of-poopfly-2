@@ -29,8 +29,8 @@ class Enemy {
         const dy = player.y - this.y; //avstånd till spelaren i y-led
         const distance = Math.sqrt(dx * dx + dy * dy); //Pythagoras sats för att få distansen, omvandlar också resultatet positivt.
 
-        if (dx > 0) this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Right_6.png"    //om xförändringen är positiv: höger
-        else this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Left_6.png"            //annars: vänster
+        if (dx > 0) this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Right_6.png";    //om xförändringen är positiv: höger
+        else this.enemySpritesheet.src = "sprites/snubbmonster/Dude_Monster_Walk_Left_6.png";            //annars: vänster
         
 
         //flyttar x- och y-koordinater mot spelaren med fiendens hastighet.

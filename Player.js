@@ -1,7 +1,7 @@
 class Player {
   constructor() {
     //sprite
-    this.runningDirection = ""
+    this.runningDirection = "";
     this.spriteWidth = 64;
     this.spriteHeight = 64;
     this.frameIndex = 0; 
@@ -26,7 +26,7 @@ class Player {
     //hälsa och odödlighetstid
     this.maxHealth = 30;
     this.currentHealth = 30;
-    this.invulnTime = 0
+    this.invulnTime = 0;
   }
 
 
@@ -36,15 +36,17 @@ class Player {
     this.frameIndex = (this.frameIndex + 1) % this.frameTotal; //uppdaterar frameräkning som används av olika delar av spelet. Spelaren har en egen frameindex för att olika av spelarens spritesheets har olika frameTotal.
 
     //måla hälsomätare:
-    ctx.fillStyle = "darkred";
-    ctx.fillRect(0, 0, this.maxHealth*5, 30);
+    ctx.fillStyle = "black"; //border till häslomätaren
+    ctx.fillRect(0, 0, this.maxHealth*5 + 2, 32); //en pixel större än maxHealth-mätaren åt alla riktningar
+    ctx.fillStyle = "darkred"; 
+    ctx.fillRect(1, 1, this.maxHealth*5, 30);
     ctx.fillStyle = "forestgreen";
-    ctx.fillRect(0, 0, this.currentHealth*5, 30);
+    ctx.fillRect(1, 1, this.currentHealth*5, 30); 
   }
 
 
   update() { //uppdaterar spelaren.
-    this.spritesheet.src = "sprites/player_movement/Running_sheet_down_6.png" //standard spritesheet om inget annat anges.
+    this.spritesheet.src = "sprites/player_movement/Running_sheet_down_6.png"; //standard spritesheet om inget annat anges.
     this.frameTotal = 4; //mängden bilder i det spritesheetet.
     let xSpeed = 0; //om inget annat anges flyttar man sig 0 på x-axeln.
     let ySpeed = 0; //samma gäller y-axeln.
@@ -54,11 +56,18 @@ class Player {
     for (i=0; i<enemyCount.length; i++) { //för varje fiende i array enemyCount:
       if (Date.now() - this.invulnTime > 750) { //om tiden nu i millisekunder minus tiden då spelaren sist tog skada är över 0.75 sekunder kan spelaren ta skada. Detta finns som funktion för att spelaren inte ska dö omedelbart då den nuddar en fiende, då spelaren annars hade tagit skada varje frame.
         if (((this.x + 32) - (enemyCount[i].x + 16))**2 + ((this.y + 32) - (enemyCount[i].y + 16))**2 < 512) {//pythagoras sats med mitten av spelaren och mitten av fienden. Jag undviker kvadratrötter då det är mer krävande för javascript.
-          this.currentHealth -= enemyCount[i].damage //hälsa minskar med fiendens skada.
-          this.invulnTime = Date.now() //Sparar tiden då spelaren tog skada i millisekunder 
+          this.currentHealth -= enemyCount[i].damage; //hälsa minskar med den fiendens skada.
+          this.invulnTime = Date.now(); //Sparar tiden då spelaren tog skada i millisekunder 
 
-          if (!this.currentHealth > 0) { //om spelarens hälsa är noll eller mindre förlorar spelaren.
-            console.log("GAME OVER") //skriver tillfälligt ut GAME OVER i konsollen
+          if (this.currentHealth <= 0) { //om spelarens hälsa är noll eller mindre förlorar spelaren.
+            console.log("GAME OVER"); //skriver tillfälligt ut GAME OVER i konsollen
+
+            isAlive = false;
+            
+            ctx.font = "bold 35px Arial"; 
+            ctx.fillStyle = "black";
+            ctx.fillText("DU FÖRLORADE! (klicka [r] för att försöka igen)", 100, 100);
+            
           }
         }
       }
@@ -70,25 +79,25 @@ class Player {
       xSpeed -= this.speed; //flyttar negativt på x-axeln (går vänster)
       this.spritesheet.src = "sprites/player_movement/Running_sheet_left_6.png"; 
       this.frameTotal = 6;
-      this.runningDirection = "left"
+      this.runningDirection = "left";
     }
     if (keys["d"] && this.x + this.spriteWidth < canvas.width) {
       xSpeed += this.speed; //flyttar positivt på x-axeln (går höger)
       this.spritesheet.src = "sprites/player_movement/Running_sheet_right_6.png";
       this.frameTotal = 6;
-      this.runningDirection = "right"
+      this.runningDirection = "right";
     }
     if (keys["w"] && this.y > 0) {
       ySpeed -= this.speed; //flyttar negativt på y-axeln (går upp)
       this.spritesheet.src = "sprites/player_movement/Running_sheet_up_6.png";
       this.frameTotal = 6;
-      this.runningDirection = "up"
+      this.runningDirection = "up";
     }
     if (keys["s"] && this.y + this.spriteHeight < canvas.height) {
       ySpeed += this.speed; //flyttar positivt på y-axeln (går ner)
       this.spritesheet.src = "sprites/player_movement/Running_sheet_down_6.png";
       this.frameTotal = 6;
-      this.runningDirection = "down"
+      this.runningDirection = "down";
     }
 
     //flyttar på spelaren med den hastighet han får av de olika riktningarna:

@@ -1,8 +1,25 @@
+body {
+    overflow: hidden;
+}
+
 h1, p {
     display: flex; 
     justify-content: center; 
     align-items: center; 
     color: white;
+}
+
+.flexbox {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: start;
+}
+
+.flexItem {
+    width: 10%;
 }
 
 #spelyta {

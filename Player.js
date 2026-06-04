@@ -54,7 +54,7 @@ class Player {
 
     //hälsa:
     for (i=0; i<enemyCount.length; i++) { //för varje fiende i array enemyCount:
-      if (Date.now() - this.invulnTime > 750) { //om tiden nu i millisekunder minus tiden då spelaren sist tog skada är över 0.75 sekunder kan spelaren ta skada. Detta finns som funktion för att spelaren inte ska dö omedelbart då den nuddar en fiende, då spelaren annars hade tagit skada varje frame.
+      if (Date.now() - this.invulnTime > 750) { //om tiden nu i millisekunder minus tiden då spelaren sist tog skada är över 0.75 sekunder kan spelaren ta skada. Detta finns som funktion för att spelaren inte ska dö omedelbart då den nuddar en fiende, då spelaren annars hade tagit skada varje frame. Detta skulle kunna mätas i frames, men det skulle inebära en större omformatering av koden jämnfört med denna lösning. Dessutom ville vi prioretera att koden ska vara regelbunden till verklg tid.
         if (((this.x + 32) - (enemyCount[i].x + 16))**2 + ((this.y + 32) - (enemyCount[i].y + 16))**2 < 512) {//pythagoras sats med mitten av spelaren och mitten av fienden. Jag undviker kvadratrötter då det är mer krävande för javascript.
           this.currentHealth -= enemyCount[i].damage; //hälsa minskar med den fiendens skada.
           this.invulnTime = Date.now(); //Sparar tiden då spelaren tog skada i millisekunder 
@@ -137,7 +137,7 @@ class Player {
 
     //Skapar armborstbult:
     if (Date.now()/1000 - this.fireRateDelay > 1/this.fireRate) { //kollar om tiden nu i sekunder minus tiden spelaren sist skjöt i sekunder är större än minsta tidsmellanrummet mellan projektiler (this.fireRate)
-      this.projectiles.push(new Projectile(this.x+16, this.y+16, direction, this.shotSpeed)); //skapar projektile från klassen Projectile i spelarens array this.projectiles.
+      this.projectiles.push(new Projectile(this.x+16, this.y+16, direction, this.shotSpeed)); //skapar projektile från klassen Projectile i spelarens array this.projectiles. En array används föra lagra projektilerna för att det är mer praktikt för en sak såsom projektiler när man behöver skapa, hålla koll på och ta bort många olika projektiler åt gången. Andra metoder, såsom att använda variabler, hade varit betydligt mer begränsade i samtida projektilantal och hur lätt det är att anropa en specifik projektil.
       this.fireRateDelay = Date.now()/1000; //sparar tiden då spelaren skjöt.
     }
   }

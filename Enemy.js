@@ -12,7 +12,7 @@ class Enemy {
         //sprite
         this.enemySpritesheet = new Image();
         this.spriteHeight = 32;
-        this.spriteWidth = 32;
+        this.spriteWidth = 32; 
 
         //standard för mäng frame och frameIndex börjar på 0
         this.frameIndex = 0; 
